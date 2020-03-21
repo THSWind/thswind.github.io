@@ -2,7 +2,7 @@
 <html lang="en">
 <head><meta name="generator" content="Hexo 3.9.0">
 <meta charset="utf-8">
-<title>Deploy:openai/baselines - THSWind</title>
+<title>Deploy: openai/baselines - THSWind</title>
 <base href="/">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
 <link rel="canonical" href="https://thswind.github.io/2019/12/11/Deploy openai+baselines environment/">
@@ -11,25 +11,25 @@
 <meta name="description" content="踩了许多坑，现将部署深度强化学习的gym/baselines环境过程整理如下：  安装 anaconda3 使用wget在清华软件源下载很快，使用下面命令进行安装 bash [文件名]  conda create -n py3.6 python=3.6 （经尝试，python3.6较为合适）  安装对应的tensorflow-gpu加速版本，版本查询可查看我这篇博文 pip install ten">
 <meta name="keywords" content="RL">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Deploy:openai&#x2F;baselines">
+<meta property="og:title" content="Deploy: openai&#x2F;baselines">
 <meta property="og:url" content="https://thswind.github.io/2019/12/11/Deploy openai+baselines environment/index.html">
 <meta property="og:site_name" content="THSWind">
 <meta property="og:description" content="踩了许多坑，现将部署深度强化学习的gym/baselines环境过程整理如下：  安装 anaconda3 使用wget在清华软件源下载很快，使用下面命令进行安装 bash [文件名]  conda create -n py3.6 python=3.6 （经尝试，python3.6较为合适）  安装对应的tensorflow-gpu加速版本，版本查询可查看我这篇博文 pip install ten">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png">
-<meta property="og:updated_time" content="2020-03-17T16:16:11.194Z">
+<meta property="og:updated_time" content="2020-03-21T19:27:10.696Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Deploy:openai&#x2F;baselines">
+<meta name="twitter:title" content="Deploy: openai&#x2F;baselines">
 <meta name="twitter:description" content="踩了许多坑，现将部署深度强化学习的gym/baselines环境过程整理如下：  安装 anaconda3 使用wget在清华软件源下载很快，使用下面命令进行安装 bash [文件名]  conda create -n py3.6 python=3.6 （经尝试，python3.6较为合适）  安装对应的tensorflow-gpu加速版本，版本查询可查看我这篇博文 pip install ten">
 <meta name="twitter:image" content="https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png">
 
-<script type="application/ld+json">[{"@context":"http://schema.org","@type":"WebSite","publisher":{"@type":"Person","name":"THSWind","description":"The only stupid question is the one you never ask.","image":"https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png"},"url":"https://thswind.github.io","image":"https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png","description":null,"author":{"@type":"Person","name":"THSWind","description":"The only stupid question is the one you never ask.","image":"https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png"},"inLanguage":{"@type":"Language","alternateName":"en"}},{"@context":"http://schema.org","@type":"Article","articleSection":"","url":"https://thswind.github.io/2019/12/11/Deploy openai+baselines environment/","headline":"Deploy:openai/baselines","image":"https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png","datePublished":"2019-12-11T03:28:59.000Z","dateModified":"2020-03-17T16:16:11.194Z","keywords":"RL","description":null,"publisher":{"@type":"Organization","name":"THSWind","logo":{"@type":"ImageObject","url":"https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png"}},"author":{"@type":"Person","name":"THSWind","description":"The only stupid question is the one you never ask.","image":"https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png"},"inLanguage":{"@type":"Language","alternateName":"en"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://thswind.github.io/2019/12/11/Deploy openai+baselines environment/"}}]</script>
+<script type="application/ld+json">[{"@context":"http://schema.org","@type":"WebSite","publisher":{"@type":"Person","name":"THSWind","description":"The only stupid question is the one you never ask.","image":"https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png"},"url":"https://thswind.github.io","image":"https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png","description":null,"author":{"@type":"Person","name":"THSWind","description":"The only stupid question is the one you never ask.","image":"https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png"},"inLanguage":{"@type":"Language","alternateName":"en"}},{"@context":"http://schema.org","@type":"Article","articleSection":"","url":"https://thswind.github.io/2019/12/11/Deploy openai+baselines environment/","headline":"Deploy: openai/baselines","image":"https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png","datePublished":"2019-12-11T03:28:59.000Z","dateModified":"2020-03-21T19:27:10.696Z","keywords":"RL","description":null,"publisher":{"@type":"Organization","name":"THSWind","logo":{"@type":"ImageObject","url":"https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png"}},"author":{"@type":"Person","name":"THSWind","description":"The only stupid question is the one you never ask.","image":"https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png"},"inLanguage":{"@type":"Language","alternateName":"en"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://thswind.github.io/2019/12/11/Deploy openai+baselines environment/"}}]</script>
 
 
 <link href="//fonts.googleapis.com/css?family=Baloo+Bhaijaan|Inconsolata|Josefin+Sans|Montserrat" rel="stylesheet">
 <link href="/styles.f6e745592a9a46992ff6.css" rel="stylesheet">
 <link rel="stylesheet" href="/theme.804a85dad91e4dba2a2a.css">
-<script src="/config.731b3d3d674caca6d5c1.js"></script>
+<script src="/config.f21e00a610ba72dfa6f2.js"></script>
 
 <script async src="//www.googletagmanager.com/gtag/js?id=UA-155154149-1"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config','UA-155154149-1');</script>
