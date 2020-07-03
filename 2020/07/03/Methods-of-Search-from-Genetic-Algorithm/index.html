@@ -8,28 +8,28 @@
 <link rel="canonical" href="https://thswind.github.io/2020/07/03/Methods-of-Search-from-Genetic-Algorithm/">
 <link rel="icon" type="image/x-icon" href="/favicon.ico">
 
-<meta name="description" content="Here are some methods of search from genetic algorithm. I think it works in reinforcement learning, especially in exploration. It gives me lots of inspiration. 1 Cuckoo SearchIn operations research, c">
+<meta name="description" content="Here are some methods of search from genetic algorithm. I think it works in reinforcement learning, especially in exploration. It gives me lots of inspiration.">
 <meta name="keywords" content="RL">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Methods of Search from Genetic Algorithm">
 <meta property="og:url" content="https://thswind.github.io/2020/07/03/Methods-of-Search-from-Genetic-Algorithm/index.html">
 <meta property="og:site_name" content="THSWind">
-<meta property="og:description" content="Here are some methods of search from genetic algorithm. I think it works in reinforcement learning, especially in exploration. It gives me lots of inspiration. 1 Cuckoo SearchIn operations research, c">
+<meta property="og:description" content="Here are some methods of search from genetic algorithm. I think it works in reinforcement learning, especially in exploration. It gives me lots of inspiration.">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png">
-<meta property="og:updated_time" content="2020-07-03T15:16:59.921Z">
+<meta property="og:updated_time" content="2020-07-03T15:22:30.204Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Methods of Search from Genetic Algorithm">
-<meta name="twitter:description" content="Here are some methods of search from genetic algorithm. I think it works in reinforcement learning, especially in exploration. It gives me lots of inspiration. 1 Cuckoo SearchIn operations research, c">
+<meta name="twitter:description" content="Here are some methods of search from genetic algorithm. I think it works in reinforcement learning, especially in exploration. It gives me lots of inspiration.">
 <meta name="twitter:image" content="https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png">
 
-<script type="application/ld+json">[{"@context":"http://schema.org","@type":"WebSite","publisher":{"@type":"Person","name":"THSWind","description":"The only stupid question is the one you never ask.","image":"https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png"},"url":"https://thswind.github.io","image":"https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png","description":null,"author":{"@type":"Person","name":"THSWind","description":"The only stupid question is the one you never ask.","image":"https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png"},"inLanguage":{"@type":"Language","alternateName":"en"}},{"@context":"http://schema.org","@type":"Article","articleSection":"","url":"https://thswind.github.io/2020/07/03/Methods-of-Search-from-Genetic-Algorithm/","headline":"Methods of Search from Genetic Algorithm","image":"https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png","datePublished":"2020-07-03T15:06:34.000Z","dateModified":"2020-07-03T15:16:59.921Z","keywords":"RL","description":null,"publisher":{"@type":"Organization","name":"THSWind","logo":{"@type":"ImageObject","url":"https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png"}},"author":{"@type":"Person","name":"THSWind","description":"The only stupid question is the one you never ask.","image":"https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png"},"inLanguage":{"@type":"Language","alternateName":"en"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://thswind.github.io/2020/07/03/Methods-of-Search-from-Genetic-Algorithm/"}}]</script>
+<script type="application/ld+json">[{"@context":"http://schema.org","@type":"WebSite","publisher":{"@type":"Person","name":"THSWind","description":"The only stupid question is the one you never ask.","image":"https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png"},"url":"https://thswind.github.io","image":"https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png","description":null,"author":{"@type":"Person","name":"THSWind","description":"The only stupid question is the one you never ask.","image":"https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png"},"inLanguage":{"@type":"Language","alternateName":"en"}},{"@context":"http://schema.org","@type":"Article","articleSection":"","url":"https://thswind.github.io/2020/07/03/Methods-of-Search-from-Genetic-Algorithm/","headline":"Methods of Search from Genetic Algorithm","image":"https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png","datePublished":"2020-07-03T15:06:34.000Z","dateModified":"2020-07-03T15:22:30.204Z","keywords":"RL","description":"Here are some methods of search from genetic algorithm. I think it works in reinforcement learning, especially in exploration. It gives me lots of inspiration.","publisher":{"@type":"Organization","name":"THSWind","logo":{"@type":"ImageObject","url":"https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png"}},"author":{"@type":"Person","name":"THSWind","description":"The only stupid question is the one you never ask.","image":"https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png"},"inLanguage":{"@type":"Language","alternateName":"en"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://thswind.github.io/2020/07/03/Methods-of-Search-from-Genetic-Algorithm/"}}]</script>
 
 
 <link href="//fonts.googleapis.com/css?family=Baloo+Bhaijaan|Inconsolata|Josefin+Sans|Montserrat" rel="stylesheet">
 <link href="/styles.f6e745592a9a46992ff6.css" rel="stylesheet">
 <link rel="stylesheet" href="/theme.804a85dad91e4dba2a2a.css">
-<script src="/config.47493a6b02898241e3b1.js"></script>
+<script src="/config.06008dfac39f8a7f5717.js"></script>
 
 <script async src="//www.googletagmanager.com/gtag/js?id=UA-155154149-1"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config','UA-155154149-1');</script>
