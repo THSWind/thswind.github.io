@@ -5,13 +5,13 @@
 <title>GPU manual for the poor - THSWind</title>
 <base href="/">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
-<link rel="canonical" href="https://thswind.github.io/2019/10/08/GPU%20manual%20for%20the%20poor/">
+<link rel="canonical" href="http://thswind.github.io/2019/10/08/GPU%20manual%20for%20the%20poor/">
 <link rel="icon" type="image/x-icon" href="/favicon.ico">
 
 <meta name="description" content="在资源紧张的情况下，除了要计划经济以外，我们还要计划gpu的使用。在此背景下，总结一份 gpu勤俭指南。 注意 运行程序前使用 CUDA_VISIBLE_DEVICES&#x3D;GPU编号 来指定使用哪块显卡，用多显卡的话在程序里写好，如果直接用 python **.py, 这样会占用全部显卡。 监控GPU状态 首先需要安装 gpustat 功能： 1pip  install gpustat 查看gpu状">
 <meta property="og:type" content="website">
 <meta property="og:title" content="GPU manual for the poor">
-<meta property="og:url" content="https://thswind.github.io/2019/10/08/GPU%20manual%20for%20the%20poor/index.html">
+<meta property="og:url" content="http://thswind.github.io/2019/10/08/GPU%20manual%20for%20the%20poor/index.html">
 <meta property="og:site_name" content="THSWind">
 <meta property="og:description" content="在资源紧张的情况下，除了要计划经济以外，我们还要计划gpu的使用。在此背景下，总结一份 gpu勤俭指南。 注意 运行程序前使用 CUDA_VISIBLE_DEVICES&#x3D;GPU编号 来指定使用哪块显卡，用多显卡的话在程序里写好，如果直接用 python **.py, 这样会占用全部显卡。 监控GPU状态 首先需要安装 gpustat 功能： 1pip  install gpustat 查看gpu状">
 <meta property="og:locale">
@@ -22,11 +22,11 @@
 <meta property="article:tag" content="server">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png">
-<script type="application/ld+json">[{"@context":"http://schema.org","@type":"WebSite","publisher":{"@type":"Person","name":"THSWind","description":"The only stupid question is the one you never ask.","image":"https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png"},"url":"https://thswind.github.io","image":"https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png","description":null,"author":{"@type":"Person","name":"THSWind","description":"The only stupid question is the one you never ask.","image":"https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png"},"inLanguage":{"@type":"Language","alternateName":"en"}},{"@context":"http://schema.org","@type":"Article","articleSection":"","url":"https://thswind.github.io/2019/10/08/GPU%20manual%20for%20the%20poor/","headline":"GPU manual for the poor","image":"https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png","datePublished":"2019-10-08T05:06:02.000Z","dateModified":"2019-10-08T05:06:02.000Z","keywords":"server","description":null,"publisher":{"@type":"Organization","name":"THSWind","logo":{"@type":"ImageObject","url":"https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png"}},"author":{"@type":"Person","name":"THSWind","description":"The only stupid question is the one you never ask.","image":"https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png"},"inLanguage":{"@type":"Language","alternateName":"en"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://thswind.github.io/2019/10/08/GPU%20manual%20for%20the%20poor/"}}]</script>
+<script type="application/ld+json">[{"@context":"http://schema.org","@type":"WebSite","publisher":{"@type":"Person","name":"THSWind","description":"The only stupid question is the one you never ask.","image":"https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png"},"url":"http://thswind.github.io","image":"https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png","description":null,"author":{"@type":"Person","name":"THSWind","description":"The only stupid question is the one you never ask.","image":"https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png"},"inLanguage":{"@type":"Language","alternateName":"en"}},{"@context":"http://schema.org","@type":"Article","articleSection":"","url":"http://thswind.github.io/2019/10/08/GPU%20manual%20for%20the%20poor/","headline":"GPU manual for the poor","image":"https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png","datePublished":"2019-10-08T05:06:02.000Z","dateModified":"2019-10-08T05:06:02.000Z","keywords":"server","description":null,"publisher":{"@type":"Organization","name":"THSWind","logo":{"@type":"ImageObject","url":"https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png"}},"author":{"@type":"Person","name":"THSWind","description":"The only stupid question is the one you never ask.","image":"https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png"},"inLanguage":{"@type":"Language","alternateName":"en"},"mainEntityOfPage":{"@type":"WebPage","@id":"http://thswind.github.io/2019/10/08/GPU%20manual%20for%20the%20poor/"}}]</script>
 <link href="//fonts.googleapis.com/css?family=Baloo+Bhaijaan|Inconsolata|Josefin+Sans|Montserrat" rel="stylesheet"><link href="/styles.e9a789bb12d50882ba5d.css" rel="stylesheet">
 <link rel="stylesheet" href="/theme.9a110498fb03f1829589.css" is="theme">
 
-<script src="/config.47bcbecebfc1c8ecdb0b.js"></script>
+<script src="/config.e22a764d5e01808ff66f.js"></script>
 <script async src="//www.googletagmanager.com/gtag/js?id=UA-155154149-1"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config','UA-155154149-1');</script>
 <meta name="generator" content="Hexo 5.1.1"></head>

@@ -5,13 +5,13 @@
 <title>tensorflow2.0 notes - THSWind</title>
 <base href="/">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
-<link rel="canonical" href="https://thswind.github.io/2019/11/05/tensorflow2.0%20notes/">
+<link rel="canonical" href="http://thswind.github.io/2019/11/05/tensorflow2.0%20notes/">
 <link rel="icon" type="image/x-icon" href="/favicon.ico">
 
 <meta name="description" content="2019年1月份，Tensorflow 2.0预览版（alpha)发布，原本1.0版本实现神经网络的方法较多，重复api多。 1 Tensorflow 2.0 特点  Tensorflow 2.0清理了废弃的API减少重复和简化了api。 训练方面  使用 Keras 和 eager execution轻松构建模型。为研究提供强大实验工具。 Tf.keras :允许创建复杂的拓扑，包括使用残差层，">
 <meta property="og:type" content="website">
 <meta property="og:title" content="tensorflow2.0 notes">
-<meta property="og:url" content="https://thswind.github.io/2019/11/05/tensorflow2.0%20notes/index.html">
+<meta property="og:url" content="http://thswind.github.io/2019/11/05/tensorflow2.0%20notes/index.html">
 <meta property="og:site_name" content="THSWind">
 <meta property="og:description" content="2019年1月份，Tensorflow 2.0预览版（alpha)发布，原本1.0版本实现神经网络的方法较多，重复api多。 1 Tensorflow 2.0 特点  Tensorflow 2.0清理了废弃的API减少重复和简化了api。 训练方面  使用 Keras 和 eager execution轻松构建模型。为研究提供强大实验工具。 Tf.keras :允许创建复杂的拓扑，包括使用残差层，">
 <meta property="og:locale">
@@ -22,11 +22,11 @@
 <meta property="article:tag" content="Tensorflow">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png">
-<script type="application/ld+json">[{"@context":"http://schema.org","@type":"WebSite","publisher":{"@type":"Person","name":"THSWind","description":"The only stupid question is the one you never ask.","image":"https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png"},"url":"https://thswind.github.io","image":"https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png","description":null,"author":{"@type":"Person","name":"THSWind","description":"The only stupid question is the one you never ask.","image":"https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png"},"inLanguage":{"@type":"Language","alternateName":"en"}},{"@context":"http://schema.org","@type":"Article","articleSection":"","url":"https://thswind.github.io/2019/11/05/tensorflow2.0%20notes/","headline":"tensorflow2.0 notes","image":"https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png","datePublished":"2019-11-05T04:06:02.000Z","dateModified":"2019-11-05T04:06:02.000Z","keywords":"Tensorflow","description":null,"publisher":{"@type":"Organization","name":"THSWind","logo":{"@type":"ImageObject","url":"https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png"}},"author":{"@type":"Person","name":"THSWind","description":"The only stupid question is the one you never ask.","image":"https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png"},"inLanguage":{"@type":"Language","alternateName":"en"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://thswind.github.io/2019/11/05/tensorflow2.0%20notes/"}}]</script>
+<script type="application/ld+json">[{"@context":"http://schema.org","@type":"WebSite","publisher":{"@type":"Person","name":"THSWind","description":"The only stupid question is the one you never ask.","image":"https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png"},"url":"http://thswind.github.io","image":"https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png","description":null,"author":{"@type":"Person","name":"THSWind","description":"The only stupid question is the one you never ask.","image":"https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png"},"inLanguage":{"@type":"Language","alternateName":"en"}},{"@context":"http://schema.org","@type":"Article","articleSection":"","url":"http://thswind.github.io/2019/11/05/tensorflow2.0%20notes/","headline":"tensorflow2.0 notes","image":"https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png","datePublished":"2019-11-05T04:06:02.000Z","dateModified":"2019-11-05T04:06:02.000Z","keywords":"Tensorflow","description":null,"publisher":{"@type":"Organization","name":"THSWind","logo":{"@type":"ImageObject","url":"https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png"}},"author":{"@type":"Person","name":"THSWind","description":"The only stupid question is the one you never ask.","image":"https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png"},"inLanguage":{"@type":"Language","alternateName":"en"},"mainEntityOfPage":{"@type":"WebPage","@id":"http://thswind.github.io/2019/11/05/tensorflow2.0%20notes/"}}]</script>
 <link href="//fonts.googleapis.com/css?family=Baloo+Bhaijaan|Inconsolata|Josefin+Sans|Montserrat" rel="stylesheet"><link href="/styles.e9a789bb12d50882ba5d.css" rel="stylesheet">
 <link rel="stylesheet" href="/theme.9a110498fb03f1829589.css" is="theme">
 
-<script src="/config.47bcbecebfc1c8ecdb0b.js"></script>
+<script src="/config.e22a764d5e01808ff66f.js"></script>
 <script async src="//www.googletagmanager.com/gtag/js?id=UA-155154149-1"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config','UA-155154149-1');</script>
 <meta name="generator" content="Hexo 5.1.1"></head>

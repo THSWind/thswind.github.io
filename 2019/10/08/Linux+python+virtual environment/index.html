@@ -5,13 +5,13 @@
 <title>linux+python+virtual environment - THSWind</title>
 <base href="/">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
-<link rel="canonical" href="https://thswind.github.io/2019/10/08/Linux+python+virtual%20environment/">
+<link rel="canonical" href="http://thswind.github.io/2019/10/08/Linux+python+virtual%20environment/">
 <link rel="icon" type="image/x-icon" href="/favicon.ico">
 
 <meta name="description" content="通常实验室里一个服务器是大家公用的，为了不引起包冲突，创建一个虚拟环境是很有必要的。通常实验室里一个服务器是大家公用的，为了不引起包冲突，创建一个虚拟环境是很有必要的。 Method1 步骤如下： 我将用conda来创建   检查是否安装conda以及当前conda版本 1conda -V   查看当前已创建的虚拟环境有哪些 1conda env list 或 1conda info -e   创">
 <meta property="og:type" content="website">
 <meta property="og:title" content="linux+python+virtual environment">
-<meta property="og:url" content="https://thswind.github.io/2019/10/08/Linux+python+virtual%20environment/index.html">
+<meta property="og:url" content="http://thswind.github.io/2019/10/08/Linux+python+virtual%20environment/index.html">
 <meta property="og:site_name" content="THSWind">
 <meta property="og:description" content="通常实验室里一个服务器是大家公用的，为了不引起包冲突，创建一个虚拟环境是很有必要的。通常实验室里一个服务器是大家公用的，为了不引起包冲突，创建一个虚拟环境是很有必要的。 Method1 步骤如下： 我将用conda来创建   检查是否安装conda以及当前conda版本 1conda -V   查看当前已创建的虚拟环境有哪些 1conda env list 或 1conda info -e   创">
 <meta property="og:locale">
@@ -23,11 +23,11 @@
 <meta property="article:tag" content="server">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png">
-<script type="application/ld+json">[{"@context":"http://schema.org","@type":"WebSite","publisher":{"@type":"Person","name":"THSWind","description":"The only stupid question is the one you never ask.","image":"https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png"},"url":"https://thswind.github.io","image":"https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png","description":null,"author":{"@type":"Person","name":"THSWind","description":"The only stupid question is the one you never ask.","image":"https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png"},"inLanguage":{"@type":"Language","alternateName":"en"}},{"@context":"http://schema.org","@type":"Article","articleSection":"","url":"https://thswind.github.io/2019/10/08/Linux+python+virtual%20environment/","headline":"linux+python+virtual environment","image":"https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png","datePublished":"2019-10-08T03:49:31.000Z","dateModified":"2019-10-08T03:49:31.000Z","keywords":"Linux,server","description":null,"publisher":{"@type":"Organization","name":"THSWind","logo":{"@type":"ImageObject","url":"https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png"}},"author":{"@type":"Person","name":"THSWind","description":"The only stupid question is the one you never ask.","image":"https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png"},"inLanguage":{"@type":"Language","alternateName":"en"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://thswind.github.io/2019/10/08/Linux+python+virtual%20environment/"}}]</script>
+<script type="application/ld+json">[{"@context":"http://schema.org","@type":"WebSite","publisher":{"@type":"Person","name":"THSWind","description":"The only stupid question is the one you never ask.","image":"https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png"},"url":"http://thswind.github.io","image":"https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png","description":null,"author":{"@type":"Person","name":"THSWind","description":"The only stupid question is the one you never ask.","image":"https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png"},"inLanguage":{"@type":"Language","alternateName":"en"}},{"@context":"http://schema.org","@type":"Article","articleSection":"","url":"http://thswind.github.io/2019/10/08/Linux+python+virtual%20environment/","headline":"linux+python+virtual environment","image":"https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png","datePublished":"2019-10-08T03:49:31.000Z","dateModified":"2019-10-08T03:49:31.000Z","keywords":"Linux,server","description":null,"publisher":{"@type":"Organization","name":"THSWind","logo":{"@type":"ImageObject","url":"https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png"}},"author":{"@type":"Person","name":"THSWind","description":"The only stupid question is the one you never ask.","image":"https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png"},"inLanguage":{"@type":"Language","alternateName":"en"},"mainEntityOfPage":{"@type":"WebPage","@id":"http://thswind.github.io/2019/10/08/Linux+python+virtual%20environment/"}}]</script>
 <link href="//fonts.googleapis.com/css?family=Baloo+Bhaijaan|Inconsolata|Josefin+Sans|Montserrat" rel="stylesheet"><link href="/styles.e9a789bb12d50882ba5d.css" rel="stylesheet">
 <link rel="stylesheet" href="/theme.9a110498fb03f1829589.css" is="theme">
 
-<script src="/config.47bcbecebfc1c8ecdb0b.js"></script>
+<script src="/config.e22a764d5e01808ff66f.js"></script>
 <script async src="//www.googletagmanager.com/gtag/js?id=UA-155154149-1"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config','UA-155154149-1');</script>
 <meta name="generator" content="Hexo 5.1.1"></head>

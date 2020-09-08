@@ -5,13 +5,13 @@
 <title>Algorithm: SumTree practice - THSWind</title>
 <base href="/">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
-<link rel="canonical" href="https://thswind.github.io/2019/11/08/Sumtree%20algorithm%20exercise/">
+<link rel="canonical" href="http://thswind.github.io/2019/11/08/Sumtree%20algorithm%20exercise/">
 <link rel="icon" type="image/x-icon" href="/favicon.ico">
 
 <meta name="description" content="代码 代码来源于网络，我主要对这段代码进行了解读。并对代码最后6行用于测试的例子的代码计算过程做了详细的梳理。 import numpy as np class Tree(object): write &#x3D; 0  # 表示第几个叶子节点可用（未被写入数据或可覆盖原数据） def __init__(self, capacity): self.capacity &#x3D; capacity  # capacit">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Algorithm: SumTree practice">
-<meta property="og:url" content="https://thswind.github.io/2019/11/08/Sumtree%20algorithm%20exercise/index.html">
+<meta property="og:url" content="http://thswind.github.io/2019/11/08/Sumtree%20algorithm%20exercise/index.html">
 <meta property="og:site_name" content="THSWind">
 <meta property="og:description" content="代码 代码来源于网络，我主要对这段代码进行了解读。并对代码最后6行用于测试的例子的代码计算过程做了详细的梳理。 import numpy as np class Tree(object): write &#x3D; 0  # 表示第几个叶子节点可用（未被写入数据或可覆盖原数据） def __init__(self, capacity): self.capacity &#x3D; capacity  # capacit">
 <meta property="og:locale">
@@ -23,11 +23,11 @@
 <meta property="article:tag" content="ALG">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png">
-<script type="application/ld+json">[{"@context":"http://schema.org","@type":"WebSite","publisher":{"@type":"Person","name":"THSWind","description":"The only stupid question is the one you never ask.","image":"https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png"},"url":"https://thswind.github.io","image":"https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png","description":null,"author":{"@type":"Person","name":"THSWind","description":"The only stupid question is the one you never ask.","image":"https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png"},"inLanguage":{"@type":"Language","alternateName":"en"}},{"@context":"http://schema.org","@type":"Article","articleSection":"","url":"https://thswind.github.io/2019/11/08/Sumtree%20algorithm%20exercise/","headline":"Algorithm: SumTree practice","image":"https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png","datePublished":"2019-11-08T05:00:36.000Z","dateModified":"2019-11-08T05:00:36.000Z","keywords":"RL,ALG","description":null,"publisher":{"@type":"Organization","name":"THSWind","logo":{"@type":"ImageObject","url":"https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png"}},"author":{"@type":"Person","name":"THSWind","description":"The only stupid question is the one you never ask.","image":"https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png"},"inLanguage":{"@type":"Language","alternateName":"en"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://thswind.github.io/2019/11/08/Sumtree%20algorithm%20exercise/"}}]</script>
+<script type="application/ld+json">[{"@context":"http://schema.org","@type":"WebSite","publisher":{"@type":"Person","name":"THSWind","description":"The only stupid question is the one you never ask.","image":"https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png"},"url":"http://thswind.github.io","image":"https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png","description":null,"author":{"@type":"Person","name":"THSWind","description":"The only stupid question is the one you never ask.","image":"https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png"},"inLanguage":{"@type":"Language","alternateName":"en"}},{"@context":"http://schema.org","@type":"Article","articleSection":"","url":"http://thswind.github.io/2019/11/08/Sumtree%20algorithm%20exercise/","headline":"Algorithm: SumTree practice","image":"https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png","datePublished":"2019-11-08T05:00:36.000Z","dateModified":"2019-11-08T05:00:36.000Z","keywords":"RL,ALG","description":null,"publisher":{"@type":"Organization","name":"THSWind","logo":{"@type":"ImageObject","url":"https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png"}},"author":{"@type":"Person","name":"THSWind","description":"The only stupid question is the one you never ask.","image":"https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png"},"inLanguage":{"@type":"Language","alternateName":"en"},"mainEntityOfPage":{"@type":"WebPage","@id":"http://thswind.github.io/2019/11/08/Sumtree%20algorithm%20exercise/"}}]</script>
 <link href="//fonts.googleapis.com/css?family=Baloo+Bhaijaan|Inconsolata|Josefin+Sans|Montserrat" rel="stylesheet"><link href="/styles.e9a789bb12d50882ba5d.css" rel="stylesheet">
 <link rel="stylesheet" href="/theme.9a110498fb03f1829589.css" is="theme">
 
-<script src="/config.47bcbecebfc1c8ecdb0b.js"></script>
+<script src="/config.e22a764d5e01808ff66f.js"></script>
 <script async src="//www.googletagmanager.com/gtag/js?id=UA-155154149-1"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config','UA-155154149-1');</script>
 <meta name="generator" content="Hexo 5.1.1"></head>
