@@ -1,297 +1,36 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  
-  
-  <title>Parameter Space Noise For Exploration | Hexo</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="这篇论文于2018年1月31日发表于ICLR会议。 1 简介深度强化学习方法在探索行为方面通常通过在动作空间中加入噪声。而另一种可选的方法则是通过直接在agent的参数中添加噪声。诸如进化策略之类的方法用到参数干扰，但会丢弃过程中所有的时间结构，且需要更多的样本。将参数噪声和传统RL方法结合，可以将两者的优点结合起来。这篇论文证明了 off-policy 和 on-policy 方法都从这种方法中">
-<meta property="og:type" content="article">
+<!doctype html>
+<html lang="en">
+<head><!-- hexo injector head_begin start -->
+<script src="/config.9a76e58557d790b3f230.js"></script>
+<!-- hexo injector head_begin end -->
+<meta charset="utf-8">
+<title>Parameter Space Noise For Exploration - THSWind</title>
+<base href="/">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+<link rel="canonical" href="http://thswind.github.io/2019/11/06/Parameter%20Space%20Noise%20For%20Exploration/">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+
+<meta name="description" content="这篇论文于2018年1月31日发表于ICLR会议。 1 简介 深度强化学习方法在探索行为方面通常通过在动作空间中加入噪声。而另一种可选的方法则是通过直接在agent的参数中添加噪声。诸如进化策略之类的方法用到参数干扰，但会丢弃过程中所有的时间结构，且需要更多的样本。将参数噪声和传统RL方法结合，可以将两者的优点结合起来。这篇论文证明了 off-policy 和 on-policy 方法都从这种方法">
+<meta property="og:type" content="website">
 <meta property="og:title" content="Parameter Space Noise For Exploration">
-<meta property="og:url" content="http://yoursite.com/2019/11/06/Parameter%20Space%20Noise%20For%20Exploration/index.html">
-<meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="这篇论文于2018年1月31日发表于ICLR会议。 1 简介深度强化学习方法在探索行为方面通常通过在动作空间中加入噪声。而另一种可选的方法则是通过直接在agent的参数中添加噪声。诸如进化策略之类的方法用到参数干扰，但会丢弃过程中所有的时间结构，且需要更多的样本。将参数噪声和传统RL方法结合，可以将两者的优点结合起来。这篇论文证明了 off-policy 和 on-policy 方法都从这种方法中">
-<meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://latex.codecogs.com/gif.latex?Q(s_t,a_t)=r(s_t,a_t)&plus;%5Cgamma%5Cmax_%7Ba%27%5Cin%20A%7DQ(s_%7Bt&plus;1%7D,a%27)">
-<meta property="og:image" content="http://latex.codecogs.com/gif.latex?Q(s_t,a_t)=r(s_t,a_t)&plus;%5Cgamma%20Q(s_%7Bt&plus;1%7D,%5Cpi_%5Ctheta(s_%7Bt&plus;1%7D))">
-<meta property="og:image" content="http://latex.codecogs.com/gif.latex?%5Cstackrel%7B%5Csim%7D%7B%5Ctheta%7D%20=%20%5Cmathcal%7BN%7D(0,%5Csigma%5E2I)">
-<meta property="og:image" content="http://latex.codecogs.com/gif.latex?%5Cstackrel%7B%5Csim%7D%7B%5Cpi%7D:=%5Cpi_%7B%5Cstackrel%7B%5Csim%7D%7B%5Ctheta%7D%7D">
-<meta property="og:image" content="http://latex.codecogs.com/gif.latex?%5Cpi:=%5Cpi_%5Ctheta">
-<meta property="og:image" content="http://latex.codecogs.com/gif.latex?a_t=%5Cpi(s_t)&plus;%5Cmathcal%7BN%7D(0,%5Csigma%5E2I)">
-<meta property="og:image" content="http://latex.codecogs.com/gif.latex?%5Csigma_%7Bk&plus;1%7D%20=%20%5Cbegin%7Bcases%7D%20%5Calpha%5Csigma_k%20&%20%5Ctext%7Bif%20%7D%20d(%5Cpi,%5Cstackrel%7B%5Csim%7D%7B%5Cpi%7D)%5Cleq%20%5Cdelta,%5C%5C%20%5Cfrac%7B1%7D%7B%5Csigma%7D%5Csigma_%7Bk%7D&%20%5Ctext%7Bif%20%7D%20otherwise,%20%5Cend%7Bcases%7D">
-<meta property="og:image" content="http://www.sciweavers.org/upload/Tex2Img_1573109616/render.png">
-<meta property="og:image" content="http://latex.codecogs.com/gif.latex?%5Cpi_%5Ctheta(a%7Cs),%5Ctheta%5Csim%5Cmathcal%7BN%7D(%5Ctheta,%5CSigma)">
-<meta property="og:image" content="http://latex.codecogs.com/gif.latex?%5Cbigtriangledown_%7B%5Cphi,%5CSigma%7D%5Cmathbb%7BE%7D_r%5BR(%5Ctau)%5D%5Capprox%5Cfrac%7B1%7D%7BN%7D%5Csum_%7B%5Cepsilon%5Ei,%5Ctau%5Ei%7D%5Cleft%5B%5Clarge%5Csum_%7Bt=0%7D%5E%7BT-1%7D%5Cbigtriangledown_%7B%5Cphi,%5CSigma%7Dlog_%7B%5Cpi%7D(a_t%7Cs_t;%20%5Cphi&plus;%5Cepsilon%5Ei%5CSigma%5E%7B%5Cfrac%7B1%7D%7B2%7D%7D)R_t(%5Ctau%5Ei)%20%5Cright%5D">
+<meta property="og:url" content="http://thswind.github.io/2019/11/06/Parameter%20Space%20Noise%20For%20Exploration/index.html">
+<meta property="og:site_name" content="THSWind">
+<meta property="og:description" content="这篇论文于2018年1月31日发表于ICLR会议。 1 简介 深度强化学习方法在探索行为方面通常通过在动作空间中加入噪声。而另一种可选的方法则是通过直接在agent的参数中添加噪声。诸如进化策略之类的方法用到参数干扰，但会丢弃过程中所有的时间结构，且需要更多的样本。将参数噪声和传统RL方法结合，可以将两者的优点结合起来。这篇论文证明了 off-policy 和 on-policy 方法都从这种方法">
+<meta property="og:locale">
+<meta property="og:image" content="https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png">
 <meta property="article:published_time" content="2019-11-06T12:11:01.000Z">
-<meta property="article:modified_time" content="2020-03-17T17:05:06.584Z">
-<meta property="article:author" content="John Doe">
+<meta property="article:modified_time" content="2019-11-06T12:11:01.000Z">
+<meta property="article:author" content="THSWind">
 <meta property="article:tag" content="RL">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://latex.codecogs.com/gif.latex?Q(s_t,a_t)=r(s_t,a_t)&plus;%5Cgamma%5Cmax_%7Ba%27%5Cin%20A%7DQ(s_%7Bt&plus;1%7D,a%27)">
-  
-    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/favicon.png">
-  
-  
-    
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
-
-  
-  
-<link rel="stylesheet" href="/css/style.css">
-
-  
-    
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
-
-  
-  
-<meta name="generator" content="Hexo 6.1.0"></head>
-
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Hexo</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-        
-          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
-        
-        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
-      </div>
-    </div>
-  </div>
-</header>
-
-      <div class="outer">
-        <section id="main"><article id="post-Parameter Space Noise For Exploration" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2019/11/06/Parameter%20Space%20Noise%20For%20Exploration/" class="article-date">
-  <time class="dt-published" datetime="2019-11-06T12:11:01.000Z" itemprop="datePublished">2019-11-06</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="p-name article-title" itemprop="headline name">
-      Parameter Space Noise For Exploration
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>这篇论文于2018年1月31日发表于ICLR会议。</p>
-<h1 id="1-简介"><a href="#1-简介" class="headerlink" title="1 简介"></a>1 简介</h1><p>深度强化学习方法在探索行为方面通常通过在动作空间中加入噪声。而另一种可选的方法则是通过直接在agent的参数中添加噪声。诸如进化策略之类的方法用到参数干扰，但会丢弃过程中所有的时间结构，且需要更多的样本。将参数噪声和传统RL方法结合，可以将两者的优点结合起来。这篇论文证明了 off-policy 和 on-policy 方法都从这种方法中得到了改进，实验对比的算法有： DQN, DDPG, 和TRPO。实验环境在高维离散动作环境，且为连续控制任务。</p>
-<p>探索依然是现代深度强化学习中的一个重要挑战，探索的主要目的是确保 agent 的动作不会提前收敛到一个局部最优解。</p>
-<h1 id="2-Off-Policy-Methods"><a href="#2-Off-Policy-Methods" class="headerlink" title="2 Off-Policy Methods"></a>2 Off-Policy Methods</h1><h2 id="2-1-Deep-Q-Networks-DQN"><a href="#2-1-Deep-Q-Networks-DQN" class="headerlink" title="2.1 Deep Q-Networks(DQN)"></a>2.1 Deep Q-Networks(DQN)</h2><p>DQN使用深度神经网络作为函数近似器去估计最优Q值函数，该等式符合Bellman最优方程。</p>
-<p><img src="http://latex.codecogs.com/gif.latex?Q(s_t,a_t)=r(s_t,a_t)&plus;%5Cgamma%5Cmax_%7Ba%27%5Cin%20A%7DQ(s_%7Bt&plus;1%7D,a%27)" alt="Q(s_t,a_t)=r(s_t,a_t)+\gamma\max_{a&#39;\in A}Q(s_{t+1},a&#39;)"></p>
-<h2 id="2-2-Deep-Deterministic-Policy-Gradients-DDPG"><a href="#2-2-Deep-Deterministic-Policy-Gradients-DDPG" class="headerlink" title="2.2 Deep Deterministic Policy  Gradients(DDPG)"></a>2.2 Deep Deterministic Policy  Gradients(DDPG)</h2><p>DDPG是一种 actor-critic 算法，适用于连续动作空间。和DQN相似，其 critic 使用 off-policy 数据和递归的Bellman最优方程去估计Q值函数。</p>
-<p><img src="http://latex.codecogs.com/gif.latex?Q(s_t,a_t)=r(s_t,a_t)&plus;%5Cgamma%20Q(s_%7Bt&plus;1%7D,%5Cpi_%5Ctheta(s_%7Bt&plus;1%7D))" alt="Q(s_t,a_t)=r(s_t,a_t)+\gamma Q(s_{t+1},\pi_\theta(s_{t+1}))"></p>
-<h1 id="3-On-Policy-Methods"><a href="#3-On-Policy-Methods" class="headerlink" title="3 On-Policy Methods"></a>3 On-Policy Methods</h1><h2 id="3-1-Trust-Region-Policy-Optimization-TRPO"><a href="#3-1-Trust-Region-Policy-Optimization-TRPO" class="headerlink" title="3.1 Trust Region Policy Optimization(TRPO)"></a>3.1 Trust Region Policy Optimization(TRPO)</h2><h1 id="4-Parameter-Space-Noise-for-Exploration"><a href="#4-Parameter-Space-Noise-for-Exploration" class="headerlink" title="4 Parameter Space Noise for Exploration"></a>4 Parameter Space Noise for Exploration</h1><p>为了实现结构化探索，我们从一系列策略中采样，这些策略都是通过在策略的参数向量中加入高斯噪声而得到。</p>
-<p><img src="http://latex.codecogs.com/gif.latex?%5Cstackrel%7B%5Csim%7D%7B%5Ctheta%7D%20=%20%5Cmathcal%7BN%7D(0,%5Csigma%5E2I)" alt="\stackrel{\sim}{\theta} = \mathcal{N}(0,\sigma^2I)"></p>
-<p>重要的是，在整个过程中，我们对策略的采样只发生在每个episode的开端。为了方便和可读性，我们标记这个被干扰的策略为  </p>
-<p><img src="http://latex.codecogs.com/gif.latex?%5Cstackrel%7B%5Csim%7D%7B%5Cpi%7D:=%5Cpi_%7B%5Cstackrel%7B%5Csim%7D%7B%5Ctheta%7D%7D" alt="\stackrel{\sim}{\pi}:=\pi_{\stackrel{\sim}{\theta}}"></p>
-<p>类似的，</p>
-<p><img src="http://latex.codecogs.com/gif.latex?%5Cpi:=%5Cpi_%5Ctheta" alt="\pi:=\pi_\theta"></p>
-<h2 id="State-dependent-exploration"><a href="#State-dependent-exploration" class="headerlink" title="State-dependent exploration"></a>State-dependent exploration</h2><p>动作空间噪声和参数空间噪声之间有重要的差异。</p>
-<p>考虑连续动作空间的情况：</p>
-<p>当使用高斯动作噪声，动作将会被采样根据一些随机策略产生： </p>
-<p><img src="http://latex.codecogs.com/gif.latex?a_t=%5Cpi(s_t)&plus;%5Cmathcal%7BN%7D(0,%5Csigma%5E2I)" alt="a_t=\pi(s_t)+\mathcal{N}(0,\sigma^2I)"></p>
-<p>因此，即便对于一个固定的状态 s， 我们也几乎能肯定的获得一个不同的动作，无论在过程中该状态是否会再次被采样。因为动作空间噪声是完全独立于当前状态，需要注意，这对于相联动作空间噪声同样适用。</p>
-<h2 id="Perturbing-deep-neural-networks"><a href="#Perturbing-deep-neural-networks" class="headerlink" title="Perturbing deep neural networks"></a>Perturbing deep neural networks</h2><p>通过使用球形高斯噪声这种有意义的方法去干预深度神经网络的参数不是很明显，因为深度神经网络一般有数百万的参数和复杂的非线性交互。然而，2017年 Salimans等人提出了一种简单的网络再参数化将其实现。更确切的说，我们在被干预的层之间使用 layer normalization。由于这在同一层的不同激活之间normalizing，所以，即使不同的层对噪声的敏感度不同，也可以在所有层上使用相同的干扰尺度。</p>
-<h2 id="Adaptive-noise-scaling"><a href="#Adaptive-noise-scaling" class="headerlink" title="Adaptive noise scaling"></a>Adaptive noise scaling</h2><p>参数空间噪声要求我们取一个合适的标量 sigma, 这可能是有问题的，因为该标量将强烈的依赖于特定的网络架构，并可能随着时间的推移而变化，因为随着学习的进展，参数对噪声变得更加敏感。另外，虽然容易直观的掌握动作空间噪声的尺度，但是很难理解参数空间的尺度。</p>
-<p>我们提出了一个简单的方案，以一种简单而直接的方式解决上述所有的限制。这是通过随着时间来调整参数空间噪声的尺度。并将其与它引起的动作空间变化相关联来实现的。更具体地说，我们可以在动作空间中被干扰与非干扰策略之间定义一个距离度量。并根据它是否低于或者高于某个阈值来相应增加或者减少参数空间噪声。</p>
-<p><img src="http://latex.codecogs.com/gif.latex?%5Csigma_%7Bk&plus;1%7D%20=%20%5Cbegin%7Bcases%7D%20%5Calpha%5Csigma_k%20&%20%5Ctext%7Bif%20%7D%20d(%5Cpi,%5Cstackrel%7B%5Csim%7D%7B%5Cpi%7D)%5Cleq%20%5Cdelta,%5C%5C%20%5Cfrac%7B1%7D%7B%5Csigma%7D%5Csigma_%7Bk%7D&%20%5Ctext%7Bif%20%7D%20otherwise,%20%5Cend%7Bcases%7D" alt="\sigma_{k+1} = \begin{cases} \alpha\sigma_k &amp; \text{if } d(\pi,\stackrel{\sim}{\pi})\leq \delta,\\ \frac{1}{\sigma}\sigma_{k}&amp; \text{if } otherwise, \end{cases}"></p>
-<p>其中 <em>α</em> 是一个标量因子， <em>δ</em> 是一个阈值。</p>
-<h2 id="Parameter-space-noise-for-off-policy-methods"><a href="#Parameter-space-noise-for-off-policy-methods" class="headerlink" title="Parameter space noise for off-policy methods"></a>Parameter space noise for off-policy methods</h2><p>在 off-policy 情况下，参数空间噪声可以直接应用，因为通过定义可以使用 off-policy 收集的数据。我们仅仅会干扰探索的策略，，并通过replay这些数据来训练非干扰网络。</p>
-<h2 id="Parameter-space-noise-for-on-policy-methods"><a href="#Parameter-space-noise-for-on-policy-methods" class="headerlink" title="Parameter space noise for on-policy methods"></a>Parameter space noise for on-policy methods</h2><p>参数噪声可以合并在一个 on-policy 设置中，使用一个改动的策略梯度 （Rückstieß 等人于2008年提出）。</p>
-<p>策略梯度方法优化 </p>
-<p><img src="http://www.sciweavers.org/upload/Tex2Img_1573109616/render.png" alt="img"></p>
-<p>给一个随机策略 </p>
-<p><img src="http://latex.codecogs.com/gif.latex?%5Cpi_%5Ctheta(a%7Cs),%5Ctheta%5Csim%5Cmathcal%7BN%7D(%5Ctheta,%5CSigma)" alt="\pi_\theta(a|s),\theta\sim\mathcal{N}(\theta,\Sigma)"></p>
-<p>期望的回报可以用似然比和再参数化技巧来扩展(Kingma &amp; Welling, 2013)。</p>
-<p><img src="http://latex.codecogs.com/gif.latex?%5Cbigtriangledown_%7B%5Cphi,%5CSigma%7D%5Cmathbb%7BE%7D_r%5BR(%5Ctau)%5D%5Capprox%5Cfrac%7B1%7D%7BN%7D%5Csum_%7B%5Cepsilon%5Ei,%5Ctau%5Ei%7D%5Cleft%5B%5Clarge%5Csum_%7Bt=0%7D%5E%7BT-1%7D%5Cbigtriangledown_%7B%5Cphi,%5CSigma%7Dlog_%7B%5Cpi%7D(a_t%7Cs_t;%20%5Cphi&plus;%5Cepsilon%5Ei%5CSigma%5E%7B%5Cfrac%7B1%7D%7B2%7D%7D)R_t(%5Ctau%5Ei)%20%5Cright%5D" alt="\bigtriangledown_{\phi,\Sigma}\mathbb{E}_r[R(\tau)]\approx\frac{1}{N}\sum_{\epsilon^i,\tau^i}\left[\large\sum_{t=0}^{T-1}\bigtriangledown_{\phi,\Sigma}log_{\pi}(a_t|s_t; \phi+\epsilon^i\Sigma^{\frac{1}{2}})R_t(\tau^i) \right]"></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/11/06/Parameter%20Space%20Noise%20For%20Exploration/" data-id="cmd4r4yn10013fgj0915x95ad" data-title="Parameter Space Noise For Exploration" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RL/" rel="tag">RL</a></li></ul>
-
-    </footer>
-  </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2019/11/08/Sumtree%20algorithm%20exercise/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          Algorithm: SumTree practice
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2019/11/06/vscode+anaconda/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Big V: vscode+anaconda</div>
-    </a>
-  
-</nav>
-
-  
-</article>
-
-
-</section>
-        
-          <aside id="sidebar">
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Categories</h3>
-    <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/reading/">reading</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ALG/" rel="tag">ALG</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Anaconda/" rel="tag">Anaconda</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DL/" rel="tag">DL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RL/" rel="tag">RL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Software-Testing/" rel="tag">Software Testing</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tensorflow/" rel="tag">Tensorflow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vscode/" rel="tag">Vscode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/browser/" rel="tag">browser</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/encryption/" rel="tag">encryption</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/latex/" rel="tag">latex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network-security/" rel="tag">network_security</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pc/" rel="tag">pc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/server/" rel="tag">server</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tips/" rel="tag">tips</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/website/" rel="tag">website</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/ALG/" style="font-size: 12.5px;">ALG</a> <a href="/tags/Anaconda/" style="font-size: 10px;">Anaconda</a> <a href="/tags/DL/" style="font-size: 10px;">DL</a> <a href="/tags/Linux/" style="font-size: 17.5px;">Linux</a> <a href="/tags/Python/" style="font-size: 17.5px;">Python</a> <a href="/tags/RL/" style="font-size: 20px;">RL</a> <a href="/tags/Software-Testing/" style="font-size: 10px;">Software Testing</a> <a href="/tags/Tensorflow/" style="font-size: 15px;">Tensorflow</a> <a href="/tags/Vscode/" style="font-size: 10px;">Vscode</a> <a href="/tags/browser/" style="font-size: 10px;">browser</a> <a href="/tags/encryption/" style="font-size: 10px;">encryption</a> <a href="/tags/latex/" style="font-size: 10px;">latex</a> <a href="/tags/network-security/" style="font-size: 10px;">network_security</a> <a href="/tags/pc/" style="font-size: 12.5px;">pc</a> <a href="/tags/server/" style="font-size: 12.5px;">server</a> <a href="/tags/tips/" style="font-size: 12.5px;">tips</a> <a href="/tags/website/" style="font-size: 15px;">website</a>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">February 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">July 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2024/02/05/encrypt-test/">(no title)</a>
-          </li>
-        
-          <li>
-            <a href="/2021/07/31/The-Art-of-Software-Testing/">The Art of Software Testing</a>
-          </li>
-        
-          <li>
-            <a href="/2020/07/31/Data-Processing/">Data Processing</a>
-          </li>
-        
-          <li>
-            <a href="/2020/07/31/Something-about-Tensorflow/">Something about Tensorflow</a>
-          </li>
-        
-          <li>
-            <a href="/2020/07/31/MultiProcessing-in-Python/">MultiProcessing in Python</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      
-      &copy; 2025 John Doe<br>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
-
-
-<script src="/js/jquery-3.6.4.min.js"></script>
-
-
-
-  
-<script src="/fancybox/jquery.fancybox.min.js"></script>
-
-
-
-
-<script src="/js/script.js"></script>
-
-
-
-
-
-  </div>
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+<meta name="twitter:image" content="https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png">
+<script type="application/ld+json">[{"@context":"http://schema.org","@type":"WebSite","publisher":{"@type":"Person","name":"THSWind","description":"The only stupid question is the one you never ask.","image":"https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png"},"url":"http://thswind.github.io","image":"https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png","description":null,"author":{"@type":"Person","name":"THSWind","description":"The only stupid question is the one you never ask.","image":"https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png"},"inLanguage":{"@type":"Language","alternateName":"en"}},{"@context":"http://schema.org","@type":"Article","articleSection":"","url":"http://thswind.github.io/2019/11/06/Parameter%20Space%20Noise%20For%20Exploration/","headline":"Parameter Space Noise For Exploration","image":"https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png","datePublished":"2019-11-06T12:11:01.000Z","dateModified":"2019-11-06T12:11:01.000Z","keywords":"RL","description":null,"publisher":{"@type":"Organization","name":"THSWind","logo":{"@type":"ImageObject","url":"https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png"}},"author":{"@type":"Person","name":"THSWind","description":"The only stupid question is the one you never ask.","image":"https://i.loli.net/2019/12/21/QROg8swh9ecvlEG.png"},"inLanguage":{"@type":"Language","alternateName":"en"},"mainEntityOfPage":{"@type":"WebPage","@id":"http://thswind.github.io/2019/11/06/Parameter%20Space%20Noise%20For%20Exploration/"}}]</script>
+<script async src="//www.googletagmanager.com/gtag/js?id=UA-155154149-1"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config','UA-155154149-1');</script>
+<!-- hexo injector head_end start --><style is="theme">html{--inside-accent-color:#2a2b33;--inside-foreground-color:#363636;--inside-border-color:#e0e0e0;--inside-background:#f3f6f7;--inside-sidebar-background:#2a2b33;--inside-card-background:#fff;--inside-font-base:'Josefin Sans','PingFang SC';--inside-font-logo:-apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;--inside-font-menu:Baloo Bhaijaan,'Josefin Sans','PingFang SC';--inside-font-heading:-apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;--inside-font-label:Montserrat,'Josefin Sans','PingFang SC';--inside-font-code:Inconsolata,monospace;--inside-font-print:-apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;--inside-content-width:660px;--inside-highlight-00:#ffffff;--inside-highlight-01:#e0e0e0;--inside-highlight-02:#f3f6f7;--inside-highlight-03:#95a5b3;--inside-highlight-04:#363636;--inside-highlight-05:#262b2f;--inside-highlight-06:#000000;--inside-highlight-07:#000000;--inside-highlight-08:#5d6c7b;--inside-highlight-09:#40464a;--inside-highlight-0a:#2980b9;--inside-highlight-0b:#be516e;--inside-highlight-0c:#237dac;--inside-highlight-0d:#944770;--inside-highlight-0e:#239371;--inside-highlight-0f:#edf0f3;--inside-card-color:#fff;--inside-accent-color-005:rgba(42,43,51,.05);--inside-accent-color-01:rgba(42,43,51,.1);--inside-accent-color-02:rgba(42,43,51,.2);--inside-accent-color-04:rgba(42,43,51,.4);--inside-accent-color-08:rgba(42,43,51,.8)}</style><script src="/theme.9ecc9ab1.js"></script>
+<script src="/disqus.645052c6.js"></script>
+<link href="//fonts.googleapis.com/css?family=Baloo+Bhaijaan|Inconsolata|Josefin+Sans|Montserrat" rel="stylesheet"></link>
+<script src="/cipher.0329a0a9.js"></script>
+<link href="/styles.91e7dfca63c7c151daa6.css" rel="stylesheet"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.1.0"></head>
+<body lang="en"><!-- hexo injector body_begin start --><is-a></is-a><!-- hexo injector body_begin end --><!-- hexo injector body_end start --><script src="/runtime.1ed960b0635ea0669f87.js"></script><script src="/polyfills.b7bf56fc45f931a8b83e.js"></script><script src="/main.543c891b4aad158701f3.js"></script><!-- hexo injector body_end end --><script src="https://cdn.jsdelivr.net/npm/live2d-widget@^3.1.3/lib/L2Dwidget.min.js"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"superSample":2,"width":300,"height":300,"position":"right","hOffset":30,"vOffset":null},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":1,"opacityOnHover":0.2},"log":false});</script></body>
 </html>
